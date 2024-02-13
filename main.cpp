@@ -104,7 +104,7 @@ double averageGrade(int i)
 {
     double final_grade = 0;
     double exam_grade = Sdata[i].exam_grade;
-    double avg_HW_grade =0;
+    double avg_HW_grade = 0;
 
     for (int j = 0; j < Number_Of_Homework; j++){
         avg_HW_grade = avg_HW_grade + Sdata[i].HW_grades[j];
@@ -115,21 +115,80 @@ double averageGrade(int i)
     exam_grade = exam_grade * 0.6;
     final_grade = final_grade + exam_grade;
     final_grade = (int)(final_grade * 100 + .5);
+
     return (double)final_grade / 100;
 }
 
+double medianGrade(int i)
+{
+    int num_of_grades = Number_Of_Homework + 1;
+    double num1 = 0;
+    double num2 = 0;
+    double list_of_grades[num_of_grades];
+    double median = 0;
+
+    for (int o = 0; o < num_of_grades - 1; o++){
+        list_of_grades[o] = Sdata[i].HW_grades[o];
+    }
+    list_of_grades[num_of_grades - 1] = Sdata[i].exam_grade;
+
+    if (num_of_grades % 2 == 0){
+        for (int j = 0; j < num_of_grades / 2; j++){
+            num1 = list_of_grades[j];
+        }
+        for (int k = 0; k < num_of_grades / 2 + 1; k++){
+            num2 = list_of_grades[k];
+        }
+
+        median = num1 + num2;
+        median = median / 2;
+        median = (int)(median * 100 + .5);
+
+        return (double)median / 100;
+    }else{
+        num1 = num_of_grades - 1;
+        num1 = num1 / 2;
+        num1 = num1 + 1;
+
+        for (int l = 0; l < num1; l++){
+            median = list_of_grades[l];
+        }
+
+        return median;
+    }
+}
 
 void print_Data()
 {
-    double average;
+    string str_placeholder;
 
-    cout << "Name       |Surname       |Final Grade" << endl;
-    cout << "...................................." << endl;
+    cout << "Do you want to get the median grade instead of the final average? " << endl;
 
-    for (int i = 0; i < Number_Of_Students; i++){
-        cout << Sdata[i].name << "       |" << Sdata[i].surname << "       |";
+    do {
+        cin.clear();
+        cout << "Type y if yes and n if no (y/n): ";
+        cin >> str_placeholder;
 
-        cout << averageGrade(i) << endl;;
+    }while (str_placeholder != "y" && str_placeholder != "n");
+
+    if (str_placeholder == "n"){
+        cout << "Name       |Surname       |Final Grade" << endl;
+        cout << "...................................." << endl;
+
+        for (int i = 0; i < Number_Of_Students; i++){
+            cout << Sdata[i].name << "       |" << Sdata[i].surname << "       |";
+
+            cout << averageGrade(i) << endl;;
+        }
+    }else{
+        cout << "Name       |Surname       |Median Grade" << endl;
+        cout << "...................................." << endl;
+
+        for (int i = 0; i < Number_Of_Students; i++){
+            cout << Sdata[i].name << "       |" << Sdata[i].surname << "       |";
+
+            cout << medianGrade(i) << endl;;
+        }
     }
     
 }
