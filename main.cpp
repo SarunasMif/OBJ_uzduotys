@@ -100,15 +100,38 @@ void collect_Data()
 
 }
 
+double averageGrade(int i)
+{
+    double final_grade = 0;
+    double exam_grade = Sdata[i].exam_grade;
+    double avg_HW_grade =0;
+
+    for (int j = 0; j < Number_Of_Homework; j++){
+        avg_HW_grade = avg_HW_grade + Sdata[i].HW_grades[j];
+    }
+
+    avg_HW_grade = avg_HW_grade / 3;
+    final_grade = avg_HW_grade * 0.4;
+    exam_grade = exam_grade * 0.6;
+    final_grade = final_grade + exam_grade;
+    final_grade = (int)(final_grade * 100 + .5);
+    return (double)final_grade / 100;
+}
+
+
 void print_Data()
 {
+    double average;
+
+    cout << "Name       |Surname       |Final Grade" << endl;
+    cout << "...................................." << endl;
+
     for (int i = 0; i < Number_Of_Students; i++){
-        cout << "[" << i << "] " << Sdata[i].name << " " << Sdata[i].surname << endl;
-        for (int j = 0; j < Number_Of_Homework; j++){
-            cout << "" << j + 1 << ") " << Sdata[i].HW_grades[j] << " ";
-        }
-        cout << "[" << i << "] " << Sdata[i].exam_grade << endl;
+        cout << Sdata[i].name << "       |" << Sdata[i].surname << "       |";
+
+        cout << averageGrade(i) << endl;;
     }
+    
 }
 
 int main()
