@@ -22,7 +22,7 @@ bool isString(const string& str_placeholder){
         }
     }
     return true;
-}
+}//gets a string and goes through every chraracter and returns false if it finds a number in it
 
 bool isInt(const string& str_placeholder){
     for (char c : str_placeholder){
@@ -38,12 +38,11 @@ bool isInt(const string& str_placeholder){
     }
 
     return true;
-}
+}//gets a string and goes through every character and returns false if it finds a letter or a number smaller than 0 or bigger than 10
 
 void collect_Data() 
 {
     string str_placeholder;
-    char placeholder;
     int int_placeholder;
     
     for (int i = 0; i < Number_Of_Students; i++){
@@ -54,9 +53,9 @@ void collect_Data()
             if (!isString(str_placeholder)){
                 cout << "Invalid!. Students name can not contain any numbers." << endl;
             } 
-        }while (!isString(str_placeholder));
+        }while (!isString(str_placeholder));//insures that the students name only consist of letters
 
-        Sdata[i].name = str_placeholder;
+        Sdata[i].name = str_placeholder;//inputs the students name into the struct
 
         do {
             cout << "Enter the students surname: ";
@@ -65,9 +64,9 @@ void collect_Data()
             if (!isString(str_placeholder)){
                 cout << "Invalid!. Students surname can not contain any numbers." << endl;
             }
-        }while (!isString(str_placeholder));
+        }while (!isString(str_placeholder));//insures that the students surname only consist of letters
 
-        Sdata[i].surname = str_placeholder;
+        Sdata[i].surname = str_placeholder;//inputs the students surname into the struct
 
         for (int j = 0; j < Number_Of_Homework; j++){
             do {
@@ -77,11 +76,11 @@ void collect_Data()
                 if (!isInt(str_placeholder)){
                     cout << "Invalid!. Students grade can only be a number and in decimal form from 0 to 10." << endl;
                 }
-            }while (!isInt(str_placeholder));
+            }while (!isInt(str_placeholder));//insures that the HW grades are numbers and above 0 or bellow 11
 
             int_placeholder = stoi(str_placeholder);
 
-            Sdata[i].HW_grades[j] = int_placeholder;
+            Sdata[i].HW_grades[j] = int_placeholder;//Inputs the HW grades into the array in the struct
         }
 
         do {
@@ -91,11 +90,11 @@ void collect_Data()
             if (!isInt(str_placeholder)){
                 cout << "Invalid!. Students exam grade can only be a number and in decimal form from 0 to 10" << endl;
             }
-        }while (!isInt(str_placeholder));
+        }while (!isInt(str_placeholder));//insures that the exam grade is a number and above 0 or bellow 11
 
         int int_placeholder = stoi(str_placeholder);
 
-        Sdata[i].exam_grade = int_placeholder;
+        Sdata[i].exam_grade = int_placeholder;//Inputs the exam grade into the array in the struct
     }
 
 }
@@ -117,7 +116,7 @@ double averageGrade(int i)
     final_grade = (int)(final_grade * 100 + .5);
 
     return (double)final_grade / 100;
-}
+}//Takes all the HW grades and the exam grade to find the average grade of the student
 
 double medianGrade(int i)
 {
@@ -131,8 +130,9 @@ double medianGrade(int i)
         list_of_grades[o] = Sdata[i].HW_grades[o];
     }
     list_of_grades[num_of_grades - 1] = Sdata[i].exam_grade;
+    //Makes a seperate array so that all the grades are in one place
 
-    if (num_of_grades % 2 == 0){
+    if (num_of_grades % 2 == 0){                    
         for (int j = 0; j < num_of_grades / 2; j++){
             num1 = list_of_grades[j];
         }
@@ -155,8 +155,8 @@ double medianGrade(int i)
         }
 
         return median;
-    }
-}
+    }//Check if the grade number is even or odd and then does the appropriate math
+}//Takes all the students HW grades and exam grade to find the median grade
 
 void print_Data()
 {
@@ -169,7 +169,7 @@ void print_Data()
         cout << "Type y if yes and n if no (y/n): ";
         cin >> str_placeholder;
 
-    }while (str_placeholder != "y" && str_placeholder != "n");
+    }while (str_placeholder != "y" && str_placeholder != "n");//Insures that the only accepted input is either a y or n
 
     if (str_placeholder == "n"){
         cout << "Name       |Surname       |Final Grade" << endl;
@@ -189,7 +189,7 @@ void print_Data()
 
             cout << medianGrade(i) << endl;;
         }
-    }
+    }//Prints a table consisting of the students results
     
 }
 
