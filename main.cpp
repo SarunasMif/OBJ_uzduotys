@@ -22,7 +22,7 @@ void input_chooser(){
     string str_placeholder;
 
     do {
-        cout << "Do you know how many students you have in your class and how many homeworks assigments they had(y/n): ";
+        cout << "Do you know how many students do you have in your class and how many homework assigments have they had(y/n): ";
         cin >> str_placeholder;
 
         if (str_placeholder != "y" && str_placeholder != "n"){
@@ -36,7 +36,7 @@ void input_chooser(){
 
         Number_Of_Students = stoi(str_placeholder);
 
-        cout << "How many homework assigments dis they have?: ";
+        cout << "How many homework assigments did they have?: ";
         cin >> str_placeholder;
 
         Number_Of_Homework = stoi(str_placeholder);
