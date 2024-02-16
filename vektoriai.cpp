@@ -30,6 +30,11 @@ void Input(Student_Data& Sdata){
 
     Sdata.student_surname = str_placeholder;
 
+    cout << "How many homewotk assigments did the students have: ";
+    cin >> str_placeholder;
+
+    Number_Of_Homework = stoi(str_placeholder);
+
     for (int j = 0; j < Number_Of_Homework; j++){
         cout << "[" << j + 1 << "] Enter the homewotks grade: ";
         cin >> str_placeholder;
@@ -118,11 +123,6 @@ int main(){
         Number_Of_Students = stoi(str_placeholder);
         vector<Student_Data> Sdata(Number_Of_Students);
 
-        cout << "How many homewotk assigments did the students have: ";
-        cin >> str_placeholder;
-
-        Number_Of_Homework = stoi(str_placeholder);
-
         for (int i = 0; i < Number_Of_Students; i++){
             Input(Sdata[i]);
         }    
@@ -131,6 +131,22 @@ int main(){
         cin >> str_placeholder;
 
        print_data(Sdata, str_placeholder);
+
+        return 0;
+    }else{
+        do {
+            Student_Data Stud_data;
+            Input(Stud_data);
+            Sdata.push_back(Stud_data);
+
+            cout << "Do you want input another student(y/n): ";
+            cin >> str_placeholder;
+        }while (str_placeholder == "y");
+
+        cout << "Do you want the average grades or the median? Type (avg) for the average grade or (med) for the median: ";
+        cin >> str_placeholder;
+
+        print_data(Sdata, str_placeholder);
 
         return 0;
     }
