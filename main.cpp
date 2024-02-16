@@ -80,6 +80,7 @@ void inputA(){
 
 void inputB(){
     //Unknown numbers
+    //Store first inputs info into a separate array than from it you can get how many HW people had
     string str_placeholder;
     string end;
     int i = 0;
