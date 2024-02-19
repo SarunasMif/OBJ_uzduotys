@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <random>
 
 using namespace std;
 
@@ -8,6 +9,7 @@ const int needed_int = 10000;
 int Number_Of_Students;
 int Number_Of_Homework;
 string status;
+string gen_s;
 
 struct Student_Data{
     string student_name;
@@ -30,6 +32,15 @@ void input_chooser(){
         }
     }while (str_placeholder != "y" && str_placeholder != "n");
 
+    do {
+        cout << "Should we generate the students grades(y/n): ";
+        cin >> gen_s;
+
+        if (gen_s != "y" && gen_s != "n"){
+            cout << "Invalid input. Type y for yes or n for no: " << endl;
+        }
+    }while (gen_s != "y" && gen_s != "n");
+
     if (str_placeholder == "y"){
         cout << "How many students are in your class: ";
         cin >> str_placeholder;
@@ -48,10 +59,10 @@ void input_chooser(){
 }
 
 void inputA(){
-    //Known numbers
     Sdata = new Student_Data[Number_Of_Students];
 
     string str_placeholder;
+    int random_grade;
 
     for (int i = 0; i < Number_Of_Students; i++){
         cout << "Enter the students name: ";
@@ -64,70 +75,170 @@ void inputA(){
 
         Sdata[i].student_surname = str_placeholder;
 
-        for (int j = 0; j < Number_Of_Homework; j ++){
-            cout << "[" << j + 1 << "] Enter the homework grade: ";
+        if (gen_s == "y"){
+            random_device rd;
+            mt19937 gen(rd());
+            uniform_int_distribution<int> dis(1, 10);
+
+            for (int j = 0; j < Number_Of_Homework; j++){
+                random_grade = dis(gen);
+                Sdata[i].HW[j] = random_grade;
+            }
+
+            random_grade = dis(gen);
+            Sdata[i].exam_grade = random_grade;
+
+        }else{
+            for (int j = 0; j < Number_Of_Homework; j ++){
+                cout << "[" << j + 1 << "] Enter the homework grade: ";
+                cin >> str_placeholder;
+
+                Sdata[i].HW[j] = stoi(str_placeholder);
+            }
+
+            cout << "Enter the students exam grade: ";
             cin >> str_placeholder;
 
-            Sdata[i].HW[j] = stoi(str_placeholder);
+            Sdata[i].exam_grade = stoi(str_placeholder);
         }
-
-        cout << "Enter the students exam grade: ";
-        cin >> str_placeholder;
-
-        Sdata[i].exam_grade = stoi(str_placeholder);
     }
 }
 
 void inputB(){
-    //Unknown numbers
-    //Store first inputs info into a separate array than from it you can get how many HW people had
     string str_placeholder;
     string end;
-    int i = 0;
+    int i = 2;
+    int k = 0;
     int j = 0;
+    int stud_count = 1;
+    int exam_g;
+    int random_grade;
 
-    Sdata = new Student_Data[i + 1];
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(1, 10);
 
-    cout << "To end the inputs type (end) int the terminal at any point." << endl;
+    string* ph_array = new string[i];
+    int* int_placeholder_array = new int[j + 1];
+    string str_placeholder_array[2];
 
-    do {
-        cout << "[" << i + 1 << "] Enter the students name: ";
+    cout << "[" << stud_count << "] Enter the students name: ";
+    cin >> str_placeholder;
+    str_placeholder_array[0] = str_placeholder;
+
+    cout << "[" << stud_count << "] Enter the students surname: ";
+    cin >> str_placeholder;
+    str_placeholder_array[1] = str_placeholder;
+
+    stud_count++;
+
+    if (gen_s == "y"){
+        Number_Of_Homework = dis(gen);
+
+        int_placeholder_array = new int[Number_Of_Homework];
+
+        for (int a = 0; a < Number_Of_Homework; a++){
+            int_placeholder_array[a] = dis(gen);
+        }
+
+        exam_g = dis(gen);
+    }else{
+        cout << "When you have entered all the grades type (end) in the input field." << endl;
+
+        do {
+            cout << "[" << j + 1 << "] Enter the students grade: ";
+            cin >> end;
+
+            if (end == "end"){
+                break;
+            }
+
+            int_placeholder_array[j] = stoi(end);
+
+            j++;
+        }while (true);
+
+        cout << "Enter the students exam grade: ";
+        cin >> exam_g;
+
+        Number_Of_Homework = j;
+    }
+
+    cout << "To stop entering in student information type (end) in the input field." << endl;
+    while (true) {
+        cout << "[" << stud_count << "] Enter the students name: ";
         cin >> str_placeholder;
+        k++;
 
         if (str_placeholder == "end"){
             break;
         }
 
-        Sdata[i].student_name = str_placeholder;
+        cout << "[" << stud_count << "] Enter the students surname: ";
+        cin >> end;
+        k++;
 
-        cout << "Enter the students surname: ";
-        cin >> str_placeholder;
+        if (i == k) {
 
-        cout << "To end the homework grade inputs type (99) in the terminal at any point." << endl;
-        do {
-            cout << "[" << j + 1 << "] Enter the students grade: ";
-            cin >> end;
+            string* new_ph_array = new string[i + 2];
 
-            Sdata[i].HW[j] = stoi(end);
+            for (int o = 0; o < i; o++) {
+                new_ph_array[o] = ph_array[o];
+            }
 
-            j++;
-        }while (end != "99");
+            delete[] ph_array;
 
-        Number_Of_Homework = j;
+            ph_array = new_ph_array;
+        }
 
-        j = 0;
+        ph_array[i] = str_placeholder;
+        ph_array[i + 1] = end;
+        i = i + 2;
+        stud_count++;
+        cout << "..........." << endl;
+    }
 
-        cout << "Enter the students exam grade: ";
-        cin >> str_placeholder;
+    Number_Of_Students = stud_count - 1;
 
-        Sdata[i].exam_grade = stoi(str_placeholder);
+    Sdata = new Student_Data[Number_Of_Students];
 
-        i++;
+    Sdata[0].student_name = str_placeholder_array[0];
+    Sdata[0].student_surname = str_placeholder_array[1];
 
-        Number_Of_Students = i;
+    int line = 2;
+    for (int u = 1; u < Number_Of_Students; u++){
+        Sdata[u].student_name = ph_array[line];
+        line++;
+        Sdata[u].student_surname = ph_array[line];
+        line++;
+    }
 
-        Sdata = new Student_Data[i + 1];
-    }while (str_placeholder != "end");
+    for (int z = 0; z < Number_Of_Homework; z++){
+        Sdata[0].HW[z] = int_placeholder_array[z];
+    }
+
+    Sdata[0].exam_grade = exam_g;
+
+    if (gen_s == "y"){
+        for (int m = 1; m < Number_Of_Students; m++){
+            for (int c = 0; c < Number_Of_Homework; c++){
+                Sdata[m].HW[c] = dis(gen);
+            }
+            Sdata[m].exam_grade = dis(gen);
+        }
+    }else{
+        for (int m = 1; m < Number_Of_Students; m++){
+            cout << "Enter the [" << m + 1 << "] HW grades" << endl;
+
+            for (int c = 0; c < Number_Of_Homework; c++){
+                cout << "Grade: ";
+                cin >> Sdata[m].HW[c];
+            }
+
+            cout << "Enter the [" << m + 1 << "] exam grade : ";
+            cin >> Sdata[m].exam_grade;
+        }
+    }
 }
 
 double avg_grade(int i){

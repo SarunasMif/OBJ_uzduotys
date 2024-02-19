@@ -4,11 +4,13 @@
 #include <string>
 #include <bits/stdc++.h>
 #include <algorithm>
+#include <random>
 
 using namespace std;
 
 int Number_Of_Students;
 int Number_Of_Homework;
+string gen_s;
 
 struct Student_Data {
     string student_name;
@@ -30,21 +32,35 @@ void Input(Student_Data& Sdata){
 
     Sdata.student_surname = str_placeholder;
 
-    cout << "How many homewotk assigments did the students have: ";
-    cin >> str_placeholder;
+    if (gen_s == "y"){
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<int> dis(1, 10);
 
-    Number_Of_Homework = stoi(str_placeholder);
+        Number_Of_Homework = dis(gen);
 
-    for (int j = 0; j < Number_Of_Homework; j++){
-        cout << "[" << j + 1 << "] Enter the homewotks grade: ";
+        for (int i = 0; i < Number_Of_Homework; i++){
+            Sdata.Homework.push_back(dis(gen));
+        }
+
+        Sdata.exam_grade = dis(gen);
+    }else{
+        cout << "How many homework assigments did the students have: ";
         cin >> str_placeholder;
-        Sdata.Homework.push_back(stoi(str_placeholder));
+
+        Number_Of_Homework = stoi(str_placeholder);
+
+        for (int j = 0; j < Number_Of_Homework; j++){
+            cout << "[" << j + 1 << "] Enter the homework grade: ";
+            cin >> str_placeholder;
+            Sdata.Homework.push_back(stoi(str_placeholder));
+        }
+
+        cout << "Enter the exam grade: ";
+        cin >> str_placeholder;
+
+        Sdata.exam_grade = stoi(str_placeholder);
     }
-
-    cout << "Enter the exam grade: ";
-    cin >> str_placeholder;
-
-    Sdata.exam_grade = stoi(str_placeholder);
 }
 
 double Avreginator(const vector<int>& Sdata){
@@ -115,6 +131,9 @@ int main(){
 
     cout << "Do you know the number of students in your class and how many homework assigments they have had (y/n): ";
     cin >> str_placeholder;
+
+    cout << "Should we generate the grades for you?(y/n): ";
+    cin >> gen_s;
 
     if (str_placeholder == "y"){
         cout << "How many students are in your class: ";
