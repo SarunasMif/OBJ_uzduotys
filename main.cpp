@@ -2,7 +2,6 @@
 #include <vector>
 #include <iomanip>
 #include <string>
-#include <bits/stdc++.h>
 #include <algorithm>
 #include <random>
 #include <sstream>
@@ -10,6 +9,7 @@
 #include <fstream>
 
 using namespace std;
+using namespace std::chrono;
 
 int Number_Of_Students;
 int Number_Of_Homework;
@@ -22,6 +22,16 @@ struct Student_Data {
     vector<int> Homework;
     int exam_grade;
 };
+
+bool isDigit(const string& str_placeholder){
+    for (char c : str_placeholder){
+        if (!isdigit(c)){
+            return false;
+        }
+    }
+
+    return true;
+}
 
 void Input(Student_Data& Sdata){
     string str_placeholder;
@@ -176,7 +186,56 @@ int manualInput(){
 }
 
 void fileInput(){
+    vector<Student_Data> Sdata;
+    string str_placeholder;
+    int i_placehloder;
 
+    ifstream read("kursiokai.txt");
+
+    getline(read, str_placeholder);
+
+    read >> str_placeholder;
+    read >> str_placeholder;
+
+    do {
+        read >> str_placeholder;
+        i_placehloder++;
+    }while (!isDigit(str_placeholder));
+
+    Number_Of_Homework = i_placehloder - 1;
+
+    read.close();
+
+    ifstream read("kursiokai.txt");
+
+    getline(read, str_placeholder);
+
+    auto start = high_resolution_clock::now();
+
+    while (getline(read, str_placeholder)){
+        Student_Data Adata;
+
+        istringstream iss(str_placeholder);
+
+        iss >> Adata.student_name >> Adata.student_surname;
+        for (int i = 0; i < Number_Of_Homework; i++){
+            int grade;
+            iss >> grade;
+            Adata.Homework.push_back(grade);
+        }
+        iss >> Adata.exam_grade;
+
+        Sdata.push_back(Adata);
+    }
+    read.close();
+
+    auto stop = high_resolution_clock::now();
+
+    auto duration = duration_cast<milliseconds>(stop - start);
+    double microseconds = duration.count();
+    double seconds = microseconds / 1000000;
+
+    cout << "Program took " << fixed << setprecision(6) << seconds << " to complete.";
 }
 
 int main(){
