@@ -15,6 +15,7 @@ int Number_Of_Students;
 int Number_Of_Homework;
 string gen_s;
 string input_mode;
+string sort_type;
 
 struct Student_Data {
     string student_name;
@@ -121,20 +122,45 @@ double median_grade(const Student_Data& Sdata){
 
 void print_data(const vector<Student_Data>& Sdata, string mode){
 
-    if (mode == "avg"){
-        cout << "Name       |Surname       |Average Grade" << endl;
-        cout << "........................................" << endl;
+    if (sort_type == "avg"){
+        if (mode == "avg"){
+            cout << "Name       |Surname       |Average Grade" << endl;
+            cout << "........................................" << endl;
 
-        for (const auto& Sdata : Sdata){
+            for (const auto& Sdata : Sdata){
             cout << left<<setw(15) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(15)<<fixed<<setprecision(2) << avg_grade(Sdata) << endl;
-        }
-    }else{
-        cout << "Name       |Surname       |Average Grade" << endl;
-        cout << "........................................" << endl;
+            }
+        }else{
+            cout << "Name       |Surname       |Average Grade" << endl;
+            cout << "........................................" << endl;
 
-        for (const auto& Sdata : Sdata){
-            cout << left<<setw(15) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(15)<<fixed<<setprecision(2) << median_grade(Sdata) << endl;
+            for (const auto& Sdata : Sdata){
+                cout << left<<setw(15) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(15)<<fixed<<setprecision(2) << median_grade(Sdata) << endl;
+            }
+    }
+    }
+    if (sort_type == "med"){
+        if (mode == "avg"){
+            cout << "Name       |Surname       |Average Grade" << endl;
+            cout << "........................................" << endl;
+
+            for (const auto& Sdata : Sdata){
+                cout << left<<setw(15) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(15)<<fixed<<setprecision(2) << avg_grade(Sdata) << endl;
+            }
+        }else{
+            cout << "Name       |Surname       |Average Grade" << endl;
+            cout << "........................................" << endl;
+
+            for (const auto& Sdata : Sdata){
+                cout << left<<setw(15) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(15)<<fixed<<setprecision(2) << median_grade(Sdata) << endl;
+            }
         }
+    }
+    if (sort_type == "name"){
+
+    }
+    if (sort_type == "sur"){
+        
     }
 }
 
@@ -229,6 +255,11 @@ void fileInput(){
     }
     read.close();
 
+    cout << "Do you want the median or the average grade, type (avg) for average, type (med) for median: ";
+    cin >> str_placeholder;
+
+    print_data(Sdata, str_placeholder);
+
     auto stop = high_resolution_clock::now();
 
     auto duration = duration_cast<milliseconds>(stop - start);
@@ -247,6 +278,13 @@ int main(){
 
         
     }while (input_mode != "manual" && input_mode != "file");
+
+    cout << "Do you want to sort the output by grade average or grade median or name or surname?" << endl;
+
+    do {
+        cout << "Input for (avg) for grade average, (med) for grade median, (name) for names, (sur) for surnames: ";
+        cin >> sort_type;
+    }while (sort_type != "avg" && sort_type != "med" && sort_type != "name" && sort_type != "sur");
 
     if (input_mode == "manual"){
             manualInput();
