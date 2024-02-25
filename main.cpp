@@ -31,7 +31,7 @@ bool isDigit(const string& str_placeholder){
     }
 
     return true;
-}
+}// Tikrina ar string yra sudarytas tiks is skaiciu
 
 void Input(Student_Data& Sdata){
     string str_placeholder;
@@ -46,7 +46,7 @@ void Input(Student_Data& Sdata){
 
     Sdata.student_surname = str_placeholder;
 
-    if (gen_s == "y"){
+    if (gen_s == "y"){                                   
         random_device rd;
         mt19937 gen(rd());
         uniform_int_distribution<int> dis(1, 10);
@@ -58,6 +58,7 @@ void Input(Student_Data& Sdata){
         }
 
         Sdata.exam_grade = dis(gen);
+        // Sugeneruojami atsitiktinei pazmiai
     }else{
         cout << "Kiek namu darbu turejo studentai: ";
         cin >> str_placeholder;
@@ -74,7 +75,7 @@ void Input(Student_Data& Sdata){
         cin >> str_placeholder;
 
         Sdata.exam_grade = stoi(str_placeholder);
-    }
+    }// Jei vartotojas zino kiek turejo namu darbu
 }
 
 double Avreginator(const vector<int>& Sdata){
@@ -87,14 +88,14 @@ double Avreginator(const vector<int>& Sdata){
     HW_average = HW_average / Sdata.size();
 
     return HW_average;
-}
+}// Vidurkio skaiciavimas 
 
 double avg_grade(const Student_Data& Sdata){
     double average = Avreginator(Sdata.Homework);
     average = 0.4 * average + 0.6 * Sdata.exam_grade;
 
     return average;
-}
+}// Vidurkio skaiciavimas
 
 double Medianator(const vector<int>& Sdata){
     double HW_average;
@@ -110,14 +111,14 @@ double Medianator(const vector<int>& Sdata){
 
         return HW_average;
     }
-}
+}// Medianos skaiciavimas
 
 double median_grade(const Student_Data& Sdata){
     double average = Medianator(Sdata.Homework);
     average = 0.4 * average + 0.6 * Sdata.exam_grade;
 
     return average;
-}
+}// Medianos skaiciavimas
 
 void print_data(const vector<Student_Data>& Sdata, string mode){
     vector<Student_Data> sorted = Sdata;
@@ -133,7 +134,8 @@ void print_data(const vector<Student_Data>& Sdata, string mode){
         for (const auto& Sdata : sorted){
             cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
-    }
+    }// Rusiuoja pagal varda
+
     else if (mode == "4"){
         cout << left << setw(17) << "Vardas " << setw(15) << "Pavarde " << setw(15) << "Galutinis(Vid.) " << setw(15) << "Galutinis(Med.)" << endl;
         cout << "---------------------------------------------------------------" << endl;
@@ -145,7 +147,8 @@ void print_data(const vector<Student_Data>& Sdata, string mode){
         for (const auto& Sdata : sorted){
             cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
-    }
+    }// Rusiuoja pagal pavarde
+
     else if (mode == "1"){
         cout << "Vardas       Pavarde       Galutinis(Vid.) Galutinis(Med.)" << endl;
         cout << "----------------------------------------------------" << endl;
@@ -157,7 +160,8 @@ void print_data(const vector<Student_Data>& Sdata, string mode){
         for (const auto& Sdata : sorted){
             cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
-    }
+    }// Rusiuoja pagal vidurki
+
     else if (mode == "2"){
         cout << left << setw(17) << "Vardas " << setw(15) << "Pavarde " << setw(15) << "Galutinis(Vid.) " << setw(15) << "Galutinis(Med.)" << endl;
         cout << "---------------------------------------------------------------" << endl;
@@ -169,7 +173,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode){
         for (const auto& Sdata : sorted){
             cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
-    }
+    }// Rusiuoja pagal pazymiu mediana
 
 }
 
@@ -218,7 +222,7 @@ int manualInput(){
 
         return 0;
     }
-}
+}// Rankinis studentu duomenu ivedimas
 
 void fileInput(){
     vector<Student_Data> Sdata;
@@ -245,7 +249,7 @@ void fileInput(){
         Adata.Homework.pop_back();
 
         Sdata.push_back(Adata);
-    }
+    }// Nuskaitoma informacija is failo ir irasoma i vektoriu
 
     Read.close();
 
@@ -261,7 +265,7 @@ void fileInput(){
     double seconds = microseconds / 1000000;
 
     cout << "Programa veike " << fixed << setprecision(6) << seconds << " sekundes.";
-}
+}// Studentu duomenu nuskaitymas is failo
 
 int main(){
     cout << "Ar norite ivesti studentu duomenis rankiniu budu ar nuskaityti is failo?" << endl;
