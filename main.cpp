@@ -15,7 +15,6 @@ int Number_Of_Students;
 int Number_Of_Homework;
 string gen_s;
 string input_mode;
-string sort_type;
 
 struct Student_Data {
     string student_name;
@@ -37,12 +36,12 @@ bool isDigit(const string& str_placeholder){
 void Input(Student_Data& Sdata){
     string str_placeholder;
 
-    cout << "Enter the students name: ";
+    cout << "Iveskite studento varda: ";
     cin >> str_placeholder;
 
     Sdata.student_name = str_placeholder;
 
-    cout << " Enter the students surname: ";
+    cout << "Iveskite studento pavarde: ";
     cin >> str_placeholder;
 
     Sdata.student_surname = str_placeholder;
@@ -60,18 +59,18 @@ void Input(Student_Data& Sdata){
 
         Sdata.exam_grade = dis(gen);
     }else{
-        cout << "How many homework assigments did the students have: ";
+        cout << "Kiek namu darbu turejo studentai: ";
         cin >> str_placeholder;
 
         Number_Of_Homework = stoi(str_placeholder);
 
         for (int j = 0; j < Number_Of_Homework; j++){
-            cout << "[" << j + 1 << "] Enter the homework grade: ";
+            cout << "[" << j + 1 << "] Iveskite pazymi: ";
             cin >> str_placeholder;
             Sdata.Homework.push_back(stoi(str_placeholder));
         }
 
-        cout << "Enter the exam grade: ";
+        cout << "Iveskite egzamino pazymi: ";
         cin >> str_placeholder;
 
         Sdata.exam_grade = stoi(str_placeholder);
@@ -123,52 +122,52 @@ double median_grade(const Student_Data& Sdata){
 void print_data(const vector<Student_Data>& Sdata, string mode){
     vector<Student_Data> sorted = Sdata;
 
-    if (mode == "avg"){
-        cout << "Name       |Surname       |Average Grade" << endl;
-        cout << "----------------------------------------" << endl;
+    if (mode == "3"){
+        cout << left << setw(17) << "Vardas " << setw(15) << "Pavarde " << setw(15) << "Galutinis(Vid.) " << setw(15) << "Galutinis(Med.)" << endl;
+        cout << "---------------------------------------------------------------" << endl;
 
         sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
             return avg_grade(a) < avg_grade(b);
         });
 
         for (const auto& Sdata : sorted){
-            cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(15)<<fixed<<setprecision(2) << avg_grade(Sdata) << endl;
+            cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
     }
-    else if (mode == "med"){
-        cout << "Name       |Surname       |Average Grade" << endl;
-        cout << "----------------------------------------" << endl;
+    else if (mode == "4"){
+        cout << left << setw(17) << "Vardas " << setw(15) << "Pavarde " << setw(15) << "Galutinis(Vid.) " << setw(15) << "Galutinis(Med.)" << endl;
+        cout << "---------------------------------------------------------------" << endl;
 
         sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
             return median_grade(a) < median_grade(b);
         });
 
         for (const auto& Sdata : sorted){
-            cout << left<<setw(15) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(15)<<fixed<<setprecision(2) << median_grade(Sdata) << endl;
+            cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
     }
-    else if (mode == "name"){
-        cout << "Name       |Surname       |Average Grade" << endl;
-        cout << "----------------------------------------" << endl;
+    else if (mode == "1"){
+        cout << "Vardas       Pavarde       Galutinis(Vid.) Galutinis(Med.)" << endl;
+        cout << "----------------------------------------------------" << endl;
 
         sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
             return stoi(a.student_name.substr(6)) < stoi(b.student_name.substr(6));
         });
 
         for (const auto& Sdata : sorted){
-            cout << left<<setw(15) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(15)<<fixed<<setprecision(2) << median_grade(Sdata) << endl;
+            cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
     }
-    else if (mode == "surname"){
-        cout << "Name       |Surname       |Average Grade" << endl;
-        cout << "----------------------------------------" << endl;
+    else if (mode == "2"){
+        cout << left << setw(17) << "Vardas " << setw(15) << "Pavarde " << setw(15) << "Galutinis(Vid.) " << setw(15) << "Galutinis(Med.)" << endl;
+        cout << "---------------------------------------------------------------" << endl;
 
         sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
             return stoi(a.student_name.substr(6)) < stoi(b.student_name.substr(6));
         });
 
         for (const auto& Sdata : sorted){
-            cout << left<<setw(15) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(15)<<fixed<<setprecision(2) << median_grade(Sdata) << endl;
+            cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
     }
 
@@ -179,14 +178,14 @@ int manualInput(){
 
     string str_placeholder;
 
-    cout << "Do you know the number of students in your class and how many homework assigments they have had (y/n): ";
+    cout << "Ar zinote kiek studentu yra jusu klaseje? (y/n): ";
     cin >> str_placeholder;
 
-    cout << "Should we generate the grades for you?(y/n): ";
+    cout << "Ar norite, kad pazymiai butu sugeneruoti? (y/n): ";
     cin >> gen_s;
 
     if (str_placeholder == "y"){
-        cout << "How many students are in your class: ";
+        cout << "Kiek studentu yra jusu klaseje: ";
         cin >> str_placeholder;
 
         Number_Of_Students = stoi(str_placeholder);
@@ -196,7 +195,7 @@ int manualInput(){
             Input(Sdata[i]);
         }    
 
-        cout << "Do you want the average grades or the median? Type (avg) for the average grade or (med) for the median: ";
+        cout << "Ar norite, kad rusiuotu pagal vardus (1), pavardes (2), vidurki (3), pazymiu mediana (4)? : ";
         cin >> str_placeholder;
 
        print_data(Sdata, str_placeholder);
@@ -208,11 +207,11 @@ int manualInput(){
             Input(Stud_data);
             Sdata.push_back(Stud_data);
 
-            cout << "Do you want input another student(y/n): ";
+            cout << "Ar norite ivesti dar viena studenta(y/n): ";
             cin >> str_placeholder;
         }while (str_placeholder == "y");
 
-        cout << "Do you want the average grades or the median? Type (avg) for the average grade or (med) for the median: ";
+        cout << "Ar norite, kad rusiuotu pagal vardus (1), pavardes (2), vidurki (3), pazymiu mediana (4)? : ";
         cin >> str_placeholder;
 
         print_data(Sdata, str_placeholder);
@@ -250,7 +249,7 @@ void fileInput(){
 
     Read.close();
 
-    cout << "Do you want the median or the average grade, type (avg) for average, type (med) for median: ";
+    cout << "Ar norite, kad rusiuotu pagal vardus (1), pavardes (2), vidurki (3), pazymiu mediana (4)? : ";
     cin >> str_placeholder;
 
     print_data(Sdata, str_placeholder);
@@ -261,20 +260,20 @@ void fileInput(){
     double microseconds = duration.count();
     double seconds = microseconds / 1000000;
 
-    cout << "Program took " << fixed << setprecision(6) << seconds << " to complete.";
+    cout << "Programa veike " << fixed << setprecision(6) << seconds << " sekundes.";
 }
 
 int main(){
-    cout << "Do you want to input student information by hand or input it from a file?" << endl;
+    cout << "Ar norite ivesti studentu duomenis rankiniu budu ar nuskaityti is failo?" << endl;
     
     do {
-        cout << "Input (manual) to input info by hand or type (file) to input it from a file: ";
+        cout << "Iveskite 1, jei norite uzpildyti rankiniu budu, iveskite 2, jei norite nuskaityti nuo failo: ";
         cin >> input_mode;
 
         
-    }while (input_mode != "manual" && input_mode != "file");
+    }while (input_mode != "1" && input_mode != "2");
 
-    if (input_mode == "manual"){
+    if (input_mode == "1"){
         manualInput();
     }else{
         fileInput();
