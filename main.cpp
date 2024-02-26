@@ -23,9 +23,15 @@ struct Student_Data {
     int exam_grade;
 };
 
-bool isDigit(const string& str_placeholder){
+bool isDigit(const string& str_placeholder, int check){
     for (char c : str_placeholder){
         if (!isdigit(c)){
+            return false;
+        }
+    }
+
+    if (check == 2){
+        if (stoi(str_placeholder) < 1 || stoi(str_placeholder) > 4){
             return false;
         }
     }
@@ -33,16 +39,38 @@ bool isDigit(const string& str_placeholder){
     return true;
 }// Tikrina ar string yra sudarytas tiks is skaiciu
 
+bool isString(const string& str_placeholder){
+    for (char c : str_placeholder){
+        if (!isalpha(c)){
+            return false;
+        }
+    }
+
+    return true;
+}
+
 void Input(Student_Data& Sdata){
     string str_placeholder;
 
-    cout << "Iveskite studento varda: ";
-    cin >> str_placeholder;
+    do {
+        cout << "Iveskite studento varda: ";
+        cin >> str_placeholder;
+
+        if (!isString(str_placeholder)) {
+            cout << "Error: vardas turi buti sudarytas tik is raidziu." << endl;
+        }
+    }while (!isString(str_placeholder));
 
     Sdata.student_name = str_placeholder;
 
-    cout << "Iveskite studento pavarde: ";
-    cin >> str_placeholder;
+    do {
+        cout << "Iveskite studento pavarde: ";
+        cin >> str_placeholder;
+
+        if (!isString) {
+            cout << "Error: pavarde turi buti sudaryta tik is raidziu." << endl;
+        }
+    }while (!isString(str_placeholder));
 
     Sdata.student_surname = str_placeholder;
 
@@ -182,11 +210,15 @@ int manualInput(){
 
     string str_placeholder;
 
-    cout << "Ar zinote kiek studentu yra jusu klaseje? (y/n): ";
-    cin >> str_placeholder;
+    do {
+        cout << "Ar zinote kiek studentu yra jusu klaseje? (y/n): ";
+        cin >> str_placeholder;
+    }while (str_placeholder != "y" && str_placeholder != "n");
 
-    cout << "Ar norite, kad pazymiai butu sugeneruoti? (y/n): ";
-    cin >> gen_s;
+    do {
+        cout << "Ar norite, kad pazymiai butu sugeneruoti? (y/n): ";
+        cin >> gen_s;
+    }while (gen_s != "y" && gen_s != "n");
 
     if (str_placeholder == "y"){
         cout << "Kiek studentu yra jusu klaseje: ";
@@ -199,8 +231,14 @@ int manualInput(){
             Input(Sdata[i]);
         }    
 
-        cout << "Ar norite, kad rusiuotu pagal vardus (1), pavardes (2), vidurki (3), pazymiu mediana (4)? : ";
-        cin >> str_placeholder;
+        do {
+            cout << "Ar norite, kad rusiuotu pagal vardus (1), pavardes (2), vidurki (3), pazymiu mediana (4)? : ";
+            cin >> str_placeholder;
+
+            if (!isDigit(str_placeholder, 2)){
+                cout << "Error, turi buti skaicius nuo 1 iki 4." << endl;
+            }
+        }while (!isDigit(str_placeholder, 2));
 
        print_data(Sdata, str_placeholder);
 
@@ -215,8 +253,14 @@ int manualInput(){
             cin >> str_placeholder;
         }while (str_placeholder == "y");
 
-        cout << "Ar norite, kad rusiuotu pagal vardus (1), pavardes (2), vidurki (3), pazymiu mediana (4)? : ";
-        cin >> str_placeholder;
+        do {
+            cout << "Ar norite, kad rusiuotu pagal vardus (1), pavardes (2), vidurki (3), pazymiu mediana (4)? : ";
+            cin >> str_placeholder;
+
+            if (!isDigit(str_placeholder, 2)){
+                cout << "Error, turi buti skaicius nuo 1 iki 4." << endl;
+            }
+        }while (!isDigit(str_placeholder, 2));
 
         print_data(Sdata, str_placeholder);
 
@@ -224,11 +268,23 @@ int manualInput(){
     }
 }// Rankinis studentu duomenu ivedimas
 
-void fileInput(){
+int fileInput(){
     vector<Student_Data> Sdata;
     string str_placeholder;
 
     ifstream Read("kursiokai.txt");
+    try {
+        if (!Read){
+            throw "Failas nerastas.";
+            return 0;
+        }
+    }
+    catch (const char* error) {
+        cerr << "Error: " << error << endl;
+
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }// Neveik dar kaip turetu neuzdaro programos
 
     getline(Read, str_placeholder);
 
@@ -253,8 +309,14 @@ void fileInput(){
 
     Read.close();
 
-    cout << "Ar norite, kad rusiuotu pagal vardus (1), pavardes (2), vidurki (3), pazymiu mediana (4)? : ";
-    cin >> str_placeholder;
+    do {
+            cout << "Ar norite, kad rusiuotu pagal vardus (1), pavardes (2), vidurki (3), pazymiu mediana (4)? : ";
+            cin >> str_placeholder;
+
+            if (!isDigit(str_placeholder, 2)){
+                cout << "Error, turi buti skaicius nuo 1 iki 4." << endl;
+            }
+        }while (!isDigit(str_placeholder, 2));
 
     print_data(Sdata, str_placeholder);
 
@@ -265,6 +327,8 @@ void fileInput(){
     double seconds = microseconds / 1000000;
 
     cout << "Programa veike " << fixed << setprecision(6) << seconds << " sekundes.";
+
+    return 0;
 }// Studentu duomenu nuskaitymas is failo
 
 int main(){
