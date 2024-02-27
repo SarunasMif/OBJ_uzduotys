@@ -276,7 +276,7 @@ int fileInput(){
     try {
         if (!Read){
             throw "Failas nerastas.";
-            return 0;
+            return 1;
         }
     }
     catch (const char* error) {
