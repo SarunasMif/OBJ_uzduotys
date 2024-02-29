@@ -66,8 +66,14 @@ void Input(Student_Data& Sdata){
         Sdata.exam_grade = dis(gen);
         // Sugeneruojami atsitiktinei pazmiai
     }else{
-        cout << "Kiek namu darbu turejo studentai: ";
-        cin >> str_placeholder;
+        do {
+            cout << "Kiek namu darbu turejo studentai: ";
+            cin >> str_placeholder;
+
+            if (!isDigit(str_placeholder, 0)){
+                cout << "Error! Turi buti skaicius. " << endl;
+            }
+        }while (!isDigit(str_placeholder, 0));
 
         Number_Of_Homework = stoi(str_placeholder);
 
