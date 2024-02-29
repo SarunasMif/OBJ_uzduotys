@@ -193,7 +193,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode){
             cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
 
-    }// Rusiuoja pagal varda
+    }// Rusiuoja pagal vard
 
     else if (mode == "2"){
         cout << left << setw(17) << "Vardas " << setw(15) << "Pavarde " << setw(15) << "Galutinis(Vid.) " << setw(15) << "Galutinis(Med.)" << endl;
