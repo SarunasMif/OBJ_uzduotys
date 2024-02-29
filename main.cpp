@@ -1,27 +1,5 @@
-#include <iostream>
-#include <vector>
-#include <iomanip>
-#include <string>
-#include <algorithm>
-#include <random>
-#include <sstream>
-#include <chrono>
-#include <fstream>
-
-using namespace std;
-using namespace std::chrono;
-
-int Number_Of_Students;
-int Number_Of_Homework;
-string gen_s;
-string input_mode;
-
-struct Student_Data {
-    string student_name;
-    string student_surname;
-    vector<int> Homework;
-    int exam_grade;
-};
+#include "includes.h"
+#include "headers.h"
 
 bool isDigit(const string& str_placeholder, int check){
     for (char c : str_placeholder){
