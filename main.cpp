@@ -8,6 +8,12 @@ bool isDigit(const string& str_placeholder, int check){
         }
     }
 
+    if (check == 1){
+        if (stoi(str_placeholder) < 1 || stoi(str_placeholder) > 10){
+            return false;
+        }
+    }
+
     if (check == 2){
         if (stoi(str_placeholder) < 1 || stoi(str_placeholder) > 4){
             return false;
@@ -25,7 +31,7 @@ bool isString(const string& str_placeholder){
     }
 
     return true;
-}
+}// Tikrina ar string yra sudarytas tiks is raidziu
 
 void Input(Student_Data& Sdata){
     string str_placeholder;
@@ -83,8 +89,14 @@ void Input(Student_Data& Sdata){
             Sdata.Homework.push_back(stoi(str_placeholder));
         }
 
-        cout << "Iveskite egzamino pazymi: ";
-        cin >> str_placeholder;
+        do {
+            cout << "Iveskite egzamino pazymi: ";
+            cin >> str_placeholder;
+
+            if (!isDigit(str_placeholder, 1)){
+                cout << "Error! Pazimys turi buti skaicius nuo 1 iki 10." << endl;
+            }
+        }while (!isDigit(str_placeholder, 1));
 
         Sdata.exam_grade = stoi(str_placeholder);
     }// Jei vartotojas zino kiek turejo namu darbu
