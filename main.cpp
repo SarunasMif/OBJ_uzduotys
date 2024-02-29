@@ -84,8 +84,16 @@ void Input(Student_Data& Sdata){
         Number_Of_Homework = stoi(str_placeholder);
 
         for (int j = 0; j < Number_Of_Homework; j++){
-            cout << "[" << j + 1 << "] Iveskite pazymi: ";
-            cin >> str_placeholder;
+           
+            do {
+                cout << "[" << j + 1 << "] Iveskite pazymi: ";
+                cin >> str_placeholder;
+
+                if (!isDigit(str_placeholder, 1)){
+                    cout << "Error! Pazimys turi buti naturalusis skaicius nuo 1 iki 10." << endl;
+                }
+            }while (!isDigit(str_placeholder, 1));
+
             Sdata.Homework.push_back(stoi(str_placeholder));
         }
 
@@ -94,7 +102,7 @@ void Input(Student_Data& Sdata){
             cin >> str_placeholder;
 
             if (!isDigit(str_placeholder, 1)){
-                cout << "Error! Pazimys turi buti skaicius nuo 1 iki 10." << endl;
+                cout << "Error! Pazimys turi buti naturalusis skaicius nuo 1 iki 10." << endl;
             }
         }while (!isDigit(str_placeholder, 1));
 
