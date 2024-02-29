@@ -192,6 +192,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode){
         for (const auto& Sdata : sorted){
             cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
+
     }// Rusiuoja pagal varda
 
     else if (mode == "2"){
