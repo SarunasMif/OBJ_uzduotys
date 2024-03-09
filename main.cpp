@@ -336,19 +336,70 @@ int fileInput(){
     return 0;
 }// Studentu duomenu nuskaitymas is failo
 
+int generateFile(){
+    int s_num = 0;
+    int hw_hum = 0;
+    string filename;
+
+    cout << "Kiek studentu generuoti norit: ";
+    cin >> s_num;
+
+    cout << "Kiek namu darbu buvo: ";
+    cin >> hw_hum;
+
+    auto start = high_resolution_clock::now();
+    filename =  "Studentai" + to_string(s_num) + ".txt";
+    ofstream write(filename);
+
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(1, 10);
+
+    write << left << setw(15) << "Vardas" << setw(15) << "Pavarde";
+
+    for (int i = 0; i < hw_hum - 1; i++){
+        write << "ND" + to_string(i + 1) << "\t";
+    }
+    write << "Egz." << endl;
+
+    for (int i = 0; i < s_num; i++){
+        stringstream s_data;
+        s_data << left << setw(15) << "Vardas" + to_string(i + 1) << setw(15) << "Pavarde" + to_string(i + 1);
+
+        for (int j = 0; j <= hw_hum; j++){
+            s_data << dis(gen) << "\t";
+        }
+
+        write << s_data.str() << endl;
+    }
+
+    write.close();
+
+    auto stop = high_resolution_clock::now();
+    chrono::duration<double> diff = stop - start;
+    cout << "File generated! File generation took " << diff.count() << " seconds" << endl;
+
+    return 0;
+}
+
 int main(){
     cout << "Ar norite ivesti studentu duomenis rankiniu budu ar nuskaityti is failo?" << endl;
     
     do {
-        cout << "Iveskite 1, jei norite uzpildyti rankiniu budu, iveskite 2, jei norite nuskaityti nuo failo: ";
+        cout << "Iveskite 1, jei norite uzpildyti rankiniu budu, iveskite 2, jei norite nuskaityti nuo failo, jei noite generuoti faila iveskite 3: ";
         cin >> input_mode;
 
         
-    }while (input_mode != "1" && input_mode != "2");
+    }while (input_mode != "1" && input_mode != "2" && input_mode != "3");
 
     if (input_mode == "1"){
         manualInput();
-    }else{
+    }
+    else if (input_mode == "3"){
+        generateFile();
+    }else {
         fileInput();
     }
+
+    
 }
