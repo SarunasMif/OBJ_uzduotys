@@ -1,6 +1,25 @@
 #include "includes.h"
 #include "headers.h"
 
+void splitstudents(const vector<Student_Data>& S_Data){
+    auto start = high_resolution_clock::now();
+
+    vector<Student_Data> kietiakiai;
+    vector<Student_Data> nuskriaustukai;
+
+    for (const auto& adata : S_Data){
+        if (avg_grade(adata) < 5){
+            nuskriaustukai.push_back(adata);
+        }else{
+            kietiakiai.push_back(adata);
+        }
+    }
+
+    auto stop = high_resolution_clock::now();
+    chrono::duration<double> diff = stop - start;
+    cout << "Rusiavimas baigtas! Rusiavimas uztruko " << diff.count() << " sekundes." << endl;
+}
+
 bool isDigit(const string& str_placeholder, int check){
     for (char c : str_placeholder){
         if (!isdigit(c)){
@@ -164,7 +183,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode){
         });
 
         for (const auto& Sdata : sorted){
-            cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
+            //cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
     }// Rusiuoja pagal vidurkius
 
@@ -177,7 +196,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode){
         });
 
         for (const auto& Sdata : sorted){
-            cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
+            //cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
     }// Rusiuoja pagal pazymiu mediana
 
@@ -190,7 +209,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode){
         });
 
         for (const auto& Sdata : sorted){
-            cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
+            //cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
 
     }// Rusiuoja pagal vardus
@@ -204,7 +223,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode){
         });
 
         for (const auto& Sdata : sorted){
-            cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
+            //cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
         }
     }// Rusiuoja pagal pavardes
 
@@ -333,6 +352,8 @@ int fileInput(){
 
     cout << "Programa veike " << fixed << setprecision(6) << seconds << " sekundes.";
 
+    splitstudents(Sdata);
+
     return 0;
 }// Studentu duomenu nuskaitymas is failo
 
@@ -357,7 +378,7 @@ int generateFile(){
 
     write << left << setw(15) << "Vardas" << setw(15) << "Pavarde";
 
-    for (int i = 0; i < hw_hum - 1; i++){
+    for (int i = 0; i < hw_hum; i++){
         write << "ND" + to_string(i + 1) << "\t";
     }
     write << "Egz." << endl;
@@ -367,7 +388,7 @@ int generateFile(){
         s_data << left << setw(15) << "Vardas" + to_string(i + 1) << setw(15) << "Pavarde" + to_string(i + 1);
 
         for (int j = 0; j <= hw_hum; j++){
-            s_data << dis(gen) << "\t";
+            s_data << setw(6) << dis(gen) << "\t";
         }
 
         write << s_data.str() << endl;
@@ -377,7 +398,7 @@ int generateFile(){
 
     auto stop = high_resolution_clock::now();
     chrono::duration<double> diff = stop - start;
-    cout << "File generated! File generation took " << diff.count() << " seconds" << endl;
+    cout << "Failas sukurtas! Failo kurimas uztruko " << diff.count() << " sekundes." << endl;
 
     return 0;
 }
