@@ -197,7 +197,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
 
     }while(!isDigit(setting, 3));
 
-
+    auto start = high_resolution_clock::now();
 
     if (setting == "1"){
         if (mode == "3"){
@@ -331,7 +331,9 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
         }
     }
 
-
+    auto stop = high_resolution_clock::now();
+    chrono::duration<double> diff = stop - start;
+    cout << "Isvedimas baigtas! Isvedimas uztruko " << diff.count() << " sekundes." << endl;
 
 }
 
@@ -392,7 +394,7 @@ int manualInput(){
             }
         }while (!isDigit(str_placeholder, 2));
 
-        print_data(Sdata, str_placeholder, "xd");
+        splitstudents(Sdata, str_placeholder);
 
         return 0;
     }
@@ -458,7 +460,7 @@ int fileInput(string filename){
     double microseconds = duration.count();
     double seconds = microseconds / 1000000;
 
-    cout << "Failo nuskaitymas uztruko " << fixed << setprecision(6) << seconds << " sekundes.";
+    cout << "Failo nuskaitymas uztruko " << fixed << setprecision(6) << seconds << " sekundes." << endl;
 
     splitstudents(Sdata, str_placeholder);
 
