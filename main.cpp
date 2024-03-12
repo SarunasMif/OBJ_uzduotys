@@ -269,7 +269,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
                 Adata << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
                 write << Adata.str() << endl;
             }
-        }//Isveda pagal varda
+        }//Isveda i faila isrusiavus pagal varda
 
         else if (mode == "2"){
             sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
@@ -289,7 +289,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
 
             write.close();
 
-        }//Isveda pagal pavarde
+        }//Isveda i faila isrusiavus pagal pavarde
 
         else if (mode == "3"){
             sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
@@ -309,7 +309,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
 
             write.close();
 
-        }//Isveda pagal vidurki
+        }//Isveda i faila isrusiavus pagal vidurki
 
         else if (mode == "4"){
             sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
@@ -328,7 +328,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
             }
 
             write.close();
-        }
+        }//Isveda i faila isrusiavus pagal mediana
     }
 
     auto stop = high_resolution_clock::now();
