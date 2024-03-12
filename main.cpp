@@ -503,7 +503,7 @@ int generateFile(){
         }
 
         write << s_data.str() << endl;
-    }
+    }//Sugeneruoja pazymius atsitiktinai
 
     write.close();
 
@@ -514,7 +514,7 @@ int generateFile(){
     fileInput(filename);
 
     return 0;
-}
+}//Sugeneruoja failus su studentu informacija
 
 int main(){
     cout << "Ar norite ivesti studentu duomenis rankiniu budu ar nuskaityti is failo?" << endl;
