@@ -211,7 +211,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
             for (const auto& Sdata : sorted){
                 //cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
             }
-        }// Rusiuoja pagal vidurkius
+        }//Isrusiuoja i terminala isrusiavus pagal vidurkius
 
         else if (mode == "4"){
             cout << left << setw(17) << "Vardas " << setw(15) << "Pavarde " << setw(15) << "Galutinis(Vid.) " << setw(15) << "Galutinis(Med.)" << endl;
@@ -224,7 +224,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
             for (const auto& Sdata : sorted){
                 //cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
             }
-        }// Rusiuoja pagal pazymiu mediana
+        }//Isveda i terminala isrusiavus pagal pazymiu mediana
 
         else if (mode == "1"){
             cout << "Vardas       Pavarde       Galutinis(Vid.) Galutinis(Med.)" << endl;
@@ -238,7 +238,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
                 //cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
             }
 
-        }// Rusiuoja pagal vardus
+        }//Isveda i terminala isrusiavus pagal vardus
 
         else if (mode == "2"){
             cout << left << setw(17) << "Vardas " << setw(15) << "Pavarde " << setw(15) << "Galutinis(Vid.) " << setw(15) << "Galutinis(Med.)" << endl;
@@ -251,7 +251,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
             for (const auto& Sdata : sorted){
                 //cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
             }
-        }// Rusiuoja pagal pavardes
+        }//Isveda i terminala isrusiavus pagal pavardes
     }else{
 
         if (mode == "1"){
