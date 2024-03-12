@@ -195,7 +195,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
             cout << "Error! Turi buti sveikasis skaicius nuo 1 iki 2.";
         }
 
-    }while(!isDigit(setting, 3));
+    }while(!isDigit(setting, 3));//Pasirinkimas del isvedimo tipu
 
     auto start = high_resolution_clock::now();
 
