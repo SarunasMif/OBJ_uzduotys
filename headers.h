@@ -1,6 +1,8 @@
 #ifndef HEADERS_H
 #define HEADERS_H
 
+#include "includes.h"
+
 int Number_Of_Students;
 int Number_Of_Homework;
 string gen_s;
@@ -22,6 +24,7 @@ double Medianator(const vector<int>& Sdata);
 double median_grade(const Student_Data& Sdata);
 void print_data(const vector<Student_Data>& Sdata, string mode, string filename);
 int manualInput();
-int fileInput();
+int fileInput(string fileinput);
+int generateFile();
 
 #endif
