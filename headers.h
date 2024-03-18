@@ -24,7 +24,7 @@ double Medianator(const vector<int>& Sdata);
 double median_grade(const Student_Data& Sdata);
 void print_data(const vector<Student_Data>& Sdata, string mode, string filename);
 int manualInput();
-int fileInput(string fileinput);
+int fileInput(string filename);
 int generateFile();
 
 #endif
