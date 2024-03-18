@@ -18,7 +18,7 @@ int main(){
         generateFile();
     }else {
         cout << "Ivsekite, kuri faila norit nuskaityti. [1] kursiokai.txt, [2] Studentai1000.txt, [3] Studentai10000.txt," << endl;
-        cout << "[4] Studentai100000.txt, [5] Studentai 1000000.txt, [6] Studentai.txt: ";
+        cout << "[4] Studentai100000.txt, [5] Studentai 1000000.txt, [6] Studentai10000000.txt: ";
         int a;
         cin >> a;
 
