@@ -10,6 +10,9 @@
 #include <sstream>
 #include <chrono>
 #include <fstream>
+#include <list>
+#include <deque>
+#include <cstdio>
 
 using namespace std;
 using namespace std::chrono;
