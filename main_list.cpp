@@ -1,13 +1,13 @@
 #include "includes.h"
-#include "headers_vector.h"
+#include "headers_list.h"
 
-void splitstudents(const vector<Student_Data>& S_Data, string mode){
+void splitstudents(const list<Student_Data>& S_Data, string mode){
     auto start = high_resolution_clock::now();
     string a = "kietiakiai.txt";
     string b = "nuskriaustukai.txt";
 
-    vector<Student_Data> kietiakiai;
-    vector<Student_Data> nuskriaustukai;
+    list<Student_Data> kietiakiai;
+    list<Student_Data> nuskriaustukai;
 
     for (const auto& adata : S_Data){
         if (avg_grade(adata) < 5){
@@ -141,16 +141,14 @@ void Input(Student_Data& Sdata){
     }// Jei vartotojas zino kiek turejo namu darbu
 }
 
-double Avreginator(const vector<int>& Sdata){
+double Avreginator(const list<int>& Sdata){
     double HW_average = 0;
 
-    for (int i = 0; i < Sdata.size(); i++){
-        HW_average = HW_average + Sdata[i];
+    for (auto it = Sdata.begin(); it != Sdata.end(); it++){
+        HW_average += *it;
     }
 
-    HW_average = HW_average / Sdata.size();
-
-    return HW_average;
+    return HW_average / Sdata.size();
 }// Vidurkio skaiciavimas 
 
 double avg_grade(const Student_Data& Sdata){
@@ -160,19 +158,20 @@ double avg_grade(const Student_Data& Sdata){
     return average;
 }// Vidurkio skaiciavimas
 
-double Medianator(const vector<int>& Sdata){
+double Medianator(const list<int>& Sdata){
     double HW_average;
-    vector<int> sortedVector = Sdata;
-    sort(sortedVector.begin(), sortedVector.end());
+    list<int> sortedList = Sdata;
+    sortedList.sort();
 
-    if (sortedVector.size() % 2 == 0){
-        HW_average = (sortedVector[sortedVector.size() / 2 - 1] + sortedVector[sortedVector.size() / 2]) / 2.0;
+    auto it = sortedList.begin();
+    advance(it, sortedList.size() / 2);
 
-        return HW_average;
-    }else{
-        HW_average = sortedVector[sortedVector.size() / 2];
-
-        return HW_average;
+    if (sortedList.size() % 2 == 0){
+        auto it2 = it;
+        --it2;
+        return(*it + *it2) / 2.0;
+    }else {
+        return *it;
     }
 }// Medianos skaiciavimas
 
@@ -183,9 +182,9 @@ double median_grade(const Student_Data& Sdata){
     return average;
 }// Medianos skaiciavimas
 
-void print_data(const vector<Student_Data>& Sdata, string mode, string filename){
-    vector<Student_Data> sorted = Sdata;
+void print_data(const list<Student_Data>& Sdata, string mode, string filename){
     string setting;
+    list<Student_Data> sorted = Sdata;
     
     do {
         cout << "Jei norite isvesti i terminala iveskite 1. Jei norite isvesti i faila iveskite 2: ";
@@ -204,49 +203,101 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
         cout << "---------------------------------------------------------------" << endl;
 
         if (mode == "1"){
-            sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
-                return stoi(a.student_name.substr(6)) < stoi(b.student_name.substr(6));
+            sorted.sort([](const Student_Data& a, const Student_Data& b){
+                string stud_nameA = a.student_name;
+                string stud_nameB = b.student_name;
+
+                bool formatA = stud_nameA.find("Vardas") != string::npos;
+                bool formatB = stud_nameB.find("Vardas") != string::npos;
+
+                if (formatA && formatB) {
+                    int valueA = stoi(stud_nameA.substr(6));
+                    int valueB = stoi(stud_nameB.substr(6));
+                    
+                    return valueA < valueB;
+                }else {
+                    return stud_nameA < stud_nameB;
+                }
             });
         }//Rusiuoja pagal varda
         else if (mode == "2"){
-            sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
-                return stoi(a.student_name.substr(6)) < stoi(b.student_name.substr(6));
+            sorted.sort([](const Student_Data& a, const Student_Data& b){
+                string stud_surA = a.student_surname;
+                string stud_surB = a.student_surname;
+
+                bool formatA = stud_surA.find("Pavarde") != string::npos;
+                bool formatB = stud_surB.find("Pavarde") != string::npos;
+
+                if (formatA && formatB){
+                    int valueA = stoi(stud_surB.substr(7));
+                    int valueB = stoi(stud_surB.substr(7));
+
+                    return valueA < valueB;
+                }else {
+                    return stud_surA < stud_surB;
+                }
             });
         }//Rusiuoja pagal pavarde
         else if (mode == "3"){
-            sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
+            sorted.sort([](const Student_Data& a, const Student_Data& b) {
                 return avg_grade(a) < avg_grade(b);
             });
         }//Rusiuoja pagal vidurki
         else if (mode == "4"){
-            sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
+            sorted.sort([](const Student_Data& a, const Student_Data& b) {
                 return median_grade(a) < median_grade(b);
             });
         }//Rusiouja pagal pazimiu mediana
 
-        for (const auto& Sdata : sorted){
-            cout << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata) << endl;
+        for (const auto& Adata : sorted){
+            cout << left << setw(17) << Adata.student_name << setw(15) << Adata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Adata) << setw(15) << fixed << setprecision(2) << median_grade(Adata) << endl;
         }
         
     }else{
 
         if (mode == "1"){
-            sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
-                return stoi(a.student_name.substr(6)) < stoi(b.student_name.substr(6));
+            sorted.sort([](const Student_Data& a, const Student_Data& b){
+                string stud_nameA = a.student_name;
+                string stud_nameB = b.student_name;
+
+                bool formatA = stud_nameA.find("Vardas") != string::npos;
+                bool formatB = stud_nameB.find("Vardas") != string::npos;
+
+                if (formatA && formatB) {
+                    int valueA = stoi(stud_nameA.substr(6));
+                    int valueB = stoi(stud_nameB.substr(6));
+                    
+                    return valueA < valueB;
+                }else {
+                    return stud_nameA < stud_nameB;
+                }
             });
         }//Rusiuoja pagal varda
         else if (mode == "2"){
-            sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
-                return stoi(a.student_name.substr(6)) < stoi(b.student_name.substr(6));
+            sorted.sort([](const Student_Data& a, const Student_Data& b){
+                string stud_surA = a.student_surname;
+                string stud_surB = a.student_surname;
+
+                bool formatA = stud_surA.find("Pavarde") != string::npos;
+                bool formatB = stud_surB.find("Pavarde") != string::npos;
+
+                if (formatA && formatB){
+                    int valueA = stoi(stud_surB.substr(7));
+                    int valueB = stoi(stud_surB.substr(7));
+
+                    return valueA < valueB;
+                }else {
+                    return stud_surA < stud_surB;
+                }
             });
         }//Rusiuoja pagal pavarde
         else if (mode == "3"){
-            sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
+            sorted.sort([](const Student_Data& a, const Student_Data& b) {
                 return avg_grade(a) < avg_grade(b);
             });
         }//Rusiuoja pagal vidurki
         else if (mode == "4"){
-            sort(sorted.begin(), sorted.end(), [](const Student_Data& a, const Student_Data& b) {
+            sorted.sort([](const Student_Data& a, const Student_Data& b) {
                 return median_grade(a) < median_grade(b);
             });
         }//Rusiouja pagal pazimiu mediana
@@ -256,9 +307,9 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
         write << left << setw(17) << "Vardas " << setw(15) << "Pavarde " << setw(15) << "Galutinis(Vid.) " << setw(15) << "Galutinis(Med.)" << endl;
         write << "---------------------------------------------------------------" << endl;
 
-        for (const auto& Sdata : sorted){
+        for (const auto& Fdata : sorted){
             stringstream Adata;
-            Adata << left << setw(17) << Sdata.student_name << setw(15) << Sdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Sdata) << setw(15) << fixed << setprecision(2) << median_grade(Sdata);
+            Adata << left << setw(17) << Fdata.student_name << setw(15) << Fdata.student_surname << setw(16) << fixed << setprecision(2) << avg_grade(Fdata) << setw(15) << fixed << setprecision(2) << median_grade(Fdata);
             write << Adata.str() << endl;
         }
     }
@@ -270,7 +321,7 @@ void print_data(const vector<Student_Data>& Sdata, string mode, string filename)
 }
 
 int manualInput(){
-    vector<Student_Data> Sdata;
+    list<Student_Data> Sdata;
 
     string str_placeholder;
 
@@ -289,10 +340,10 @@ int manualInput(){
         cin >> str_placeholder;
 
         Number_Of_Students = stoi(str_placeholder);
-        vector<Student_Data> Sdata(Number_Of_Students);
+        list<Student_Data> Sdata(Number_Of_Students);
 
         for (int i = 0; i < Number_Of_Students; i++){
-            Input(Sdata[i]);
+            //Input(Sdata[i]);
         }    
 
         do {
@@ -333,7 +384,7 @@ int manualInput(){
 }// Rankinis studentu duomenu ivedimas
 
 int fileInput(string filename){
-    vector<Student_Data> Sdata;
+    list<Student_Data> Sdata;
     string str_placeholder;
 
     ifstream Read;
@@ -449,7 +500,7 @@ int generateFile(){
 }//Sugeneruoja failus su studentu informacija
 
 int main(){
-    cout << "VECTOR" << endl;
+    cout << "LIST" << endl;
     cout << "Ar norite ivesti studentu duomenis rankiniu budu ar nuskaityti is failo?" << endl;
     
     do {
@@ -493,7 +544,6 @@ int main(){
         
         fileInput(filename);
     }
-    
     system("pause");
 
     getchar();
