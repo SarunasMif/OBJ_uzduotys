@@ -465,36 +465,12 @@ int main(){
     else if (input_mode == "3"){
         generateFile();
     }else {
-        cout << "Ivsekite, kuri faila norit nuskaityti. [1] kursiokai.txt, [2] Studentai1000.txt, [3] Studentai10000.txt," << endl;
-        cout << "[4] Studentai100000.txt, [5] Studentai 1000000.txt, [6] Studentai10000000.txt: ";
-        int a;
-        cin >> a;
-
         string filename;
+        filename = "kursiokai.txt";
 
-        if (a == 1){
-            filename = "kursiokai.txt";
-        }
-        else if (a == 2){
-            filename = "Studentai1000.txt";
-        }
-        else if (a == 3){
-            filename = "Studentai10000.txt";
-        }
-        else if (a == 4){
-            filename = "Studentai100000.txt";
-        }
-        else if (a == 5){
-            filename = "Studentai1000000.txt";
-        }
-        else if (a == 6){
-            filename = "Studentai10000000.txt";
-        }
-        
-        fileInput(filename);
+        fileInput(filename);  
     }
 
     system("pause");
     
-    getchar();
 }
