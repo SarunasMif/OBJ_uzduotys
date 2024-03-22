@@ -59,6 +59,29 @@ void splitstudents(vector<Student_Data>& S_Data, string mode){
 
         print_data(S_Data, mode, "kietiakiai.txt");
         print_data(vargsiukai, mode, "nuskriaustukai.txt");
+    }else {
+        auto start = high_resolution_clock::now();
+
+        vector<Student_Data> vargsiukai;
+
+        auto split = partition(S_Data.begin(), S_Data.end(), [](const Student_Data& S_Data){
+            return avg_grade(S_Data) < 5;
+        });
+
+        auto extract = remove_if(S_Data.begin(), split, [](const Student_Data& S_Data){
+            return avg_grade(S_Data) < 5;
+        });
+
+        move(extract, split, back_inserter(vargsiukai));
+
+        S_Data.erase(extract, split);
+
+        auto stop = high_resolution_clock::now();
+        chrono::duration<double> diff = stop - start;
+        cout << "Rusiavimas baigtas! Rusiavimas uztruko " << diff.count() << " sekundes." << endl;
+
+        print_data(S_Data, mode, "kietiakiai.txt");
+        print_data(vargsiukai, mode, "nuskriaustukai.txt");
     }
     
 

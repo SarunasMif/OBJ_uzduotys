@@ -7,7 +7,7 @@ string gen_s;
 string input_mode;
 
 struct Student_Data {
-    std::string student_name;
+    string student_name;
     string student_surname;
     vector<int> Homework;
     int exam_grade;
