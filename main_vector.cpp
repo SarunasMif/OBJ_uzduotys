@@ -85,7 +85,7 @@ void splitstudents(vector<Student_Data>& S_Data, string mode){
     }
     
 
-}// Sukuria du vektorius rusiuoti studentams pagal vidurkius.
+}// Sukuria du vektorius rusiuoti studentams pagal  vidurkius.
 
 bool isDigit(const string& str_placeholder, int check){
     for (char c : str_placeholder){
