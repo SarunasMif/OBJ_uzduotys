@@ -15,8 +15,6 @@ void splitstudents(vector<Student_Data>& S_Data, string mode){
 
     if (split_type == "1"){
         auto start = high_resolution_clock::now();
-        string a = "kietiakiai.txt";
-        string b = "nuskriaustukai.txt";
 
         vector<Student_Data> kietiakiai;
         vector<Student_Data> nuskriaustukai;
@@ -33,8 +31,8 @@ void splitstudents(vector<Student_Data>& S_Data, string mode){
         chrono::duration<double> diff = stop - start;
         cout << "Rusiavimas baigtas! Rusiavimas uztruko " << diff.count() << " sekundes." << endl;
 
-        print_data(kietiakiai, mode, a);
-        print_data(nuskriaustukai, mode, b);
+        print_data(kietiakiai, mode, "kietiakiai.txt");
+        print_data(nuskriaustukai, mode, "nuskriaustukai.txt");
     }
     else if (split_type == "2"){
         auto start = high_resolution_clock::now();

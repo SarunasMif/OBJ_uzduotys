@@ -1,28 +1,63 @@
 #include "includes.h"
 #include "headers_list.h"
 
-void splitstudents(const list<Student_Data>& S_Data, string mode){
-    auto start = high_resolution_clock::now();
-    string a = "kietiakiai.txt";
-    string b = "nuskriaustukai.txt";
+void splitstudents(list<Student_Data>& S_Data, string mode){
+    string split_type;
+    
+    do {
+        cout << "Pagal, kuria strategija dalinti studentus [1] du naujus vektorius, [2] vienas naujas vektorius, [3] optimizuota naudojant funkcijas: ";
+        cin >> split_type;
 
-    list<Student_Data> kietiakiai;
-    list<Student_Data> nuskriaustukai;
-
-    for (const auto& adata : S_Data){
-        if (avg_grade(adata) < 5){
-            nuskriaustukai.push_back(adata);
-        }else{
-            kietiakiai.push_back(adata);
+        if(!isDigit(split_type, 4)){
+            cout << "Error. Skaicius turi but tarp 1 ir 3" << endl;
         }
+    } while (!isDigit(split_type, 4));
+
+    if (split_type == "1"){
+        auto start = high_resolution_clock::now();
+
+        list<Student_Data> kietiakiai;
+        list<Student_Data> nuskriaustukai;
+
+        for (const auto& adata : S_Data){
+            if (avg_grade(adata) < 5){
+                nuskriaustukai.push_back(adata);
+            }else{
+                kietiakiai.push_back(adata);
+            }
+        }
+
+        auto stop = high_resolution_clock::now();
+        chrono::duration<double> diff = stop - start;
+        cout << "Rusiavimas baigtas! Rusiavimas uztruko " << diff.count() << " sekundes." << endl;
+
+        print_data(kietiakiai, mode, "kietiakiai.txt");
+        print_data(nuskriaustukai, mode, "nuskriaustukai.txt");
     }
+    else if (split_type == "2"){
+        auto start = high_resolution_clock::now();
 
-    auto stop = high_resolution_clock::now();
-    chrono::duration<double> diff = stop - start;
-    cout << "Rusiavimas baigtas! Rusiavimas uztruko " << diff.count() << " sekundes." << endl;
+        list<Student_Data> vargsiukai;
 
-    print_data(kietiakiai, mode, a);
-    print_data(nuskriaustukai, mode, b);
+        auto sort = S_Data.begin();
+
+        while (sort != S_Data.end()){
+            if (avg_grade(*sort) < 5) {
+                vargsiukai.splice(vargsiukai.end(), S_Data, sort++);
+            } else {
+                sort++;
+            }
+        }
+
+        auto stop = high_resolution_clock::now();
+        chrono::duration<double> diff = stop - start;
+        cout << "Rusiavimas baigtas! Rusiavimas uztruko " << diff.count() << " sekundes." << endl;
+
+        print_data(S_Data, mode, "kietiakiai.txt");
+        print_data(vargsiukai, mode, "nuskriaustukai.txt");
+    }
+    
+
 
 }// Sukuria du vektorius rusiuoti studentams pagal vidurkius.
 
