@@ -237,3 +237,94 @@ Failo skaitymas:    0.027599s
 Failo rusiavimas:   10.354677s
 Isvedimas 1:        155.345900s
 Isvedimas 2:        106.634882s
+
+# Sorting strategy test
+
+1 strategija: Bendro studentai konteinerio (vector, list ir deque tipų) skaidymas (rūšiavimas) į du naujus to paties tipo konteinerius: "vargšiukų" ir "kietiakų". Tokiu būdu tas pats studentas yra dvejuose konteineriuose: bendrame studentai ir viename iš suskaidytų (vargšiukai arba kietiakai). Nesunku pastebėti, kad tokia strategija yra neefektyvi užimamos atminties atžvilgiu (įsitikinkite tuo!), tačiau šiame žingsnyje svarbiausia yra patyrinėti, kaip programos veikimo sparta priklauso nuo konteinerio tipo?
+2 strategija: Bendro studentų konteinerio (vector, list ir deque) skaidymas (rūšiavimas) panaudojant tik vieną naują konteinerį: "vargšiukai". Tokiu būdu, jei studentas yra vargšiukas, jį turime įkelti į naująjį "vargšiukų" konteinerį ir ištrinti iš bendro studentai konteinerio. Po šio žingsnio studentai konteineryje liks vien tik kietiakai. Atminties atveju tai efektyviau, tačiau dažni trynimai gali būti "skausmingi", ypač tam tikro tipo konteineriams.
+3 strategija: Bendro studentų konteinerio (vector, list ir deque) skaidymas (rūšiavimas) panaudojant greičiausiai veikianti 1 arba 2 strategiją  įtraukiant į ją "efektyvius" darbo su konteineriais metodus (pateikiami žemiau).
+
+1000 nariu;
+
+Vector:
+[1]
+[2]
+[3]
+
+List:
+[1]
+[2]
+[3]
+
+Deque:
+[1]
+[2]
+[3]
+
+10000 nariu;
+
+Vector:
+[1]
+[2]
+[3]
+
+List:
+[1]
+[2]
+[3]
+
+Deque:
+[1]
+[2]
+[3]
+
+100000 nariu;
+
+Vector:
+[1]
+[2]
+[3]
+
+List:
+[1]
+[2]
+[3]
+
+Deque:
+[1]
+[2]
+[3]
+
+1000000 nariu;
+
+Vector:
+[1]
+[2]
+[3]
+
+List:
+[1]
+[2]
+[3]
+
+Deque:
+[1]
+[2]
+[3]
+
+100000000 nariu;
+
+Vector:
+[1]
+[2]
+[3]
+
+List:
+[1]
+[2]
+[3]
+
+Deque:
+[1]
+[2]
+[3]

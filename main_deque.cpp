@@ -526,7 +526,25 @@ int main(){
         generateFile();
     }else {
         string filename;
-        filename = "kursiokai.txt";
+        int a = 0;
+        cout << "Which file to sort [1] 1000 nariu, [2] 10000 nariu, [3] 100000 nariu, [4] 10000000, [5] 100000000";
+        cin >> a;
+
+        if (a == 1){
+            filename = "Studentai1000.txt";
+        }
+        else if (a == 2){
+            filename = "Studentai10000.txt";
+        }
+        else if (a == 3){
+            filename = "Studentai100000.txt";
+        }
+        else if (a == 4){
+            filename = "Studentai1000000.txt";
+        }
+        else if (a == 5){
+            filename = "Studentai10000000.txt";
+        }
 
         fileInput(filename);  
     }
