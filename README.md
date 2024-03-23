@@ -247,84 +247,88 @@ Isvedimas 2:        106.634882s
 1000 nariu;
 
 Vector:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 0.000511s
+[2] Rusiavimas uztruko: 0.000341s
+[3] Rusiavimas uztruko: 0.000400s
 
 List:
-[1]
-[2]
-[3]
-
+[1] Rusiavimas uztruko: 0.001967s
+[2] Rusiavimas uztruko: 0.000476s
+[3] Rusiavimas uztruko: 0.000594s
+ 
 Deque:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 0.001066s
+[2] Rusiavimas uztruko: 0.000798s
+[3] Rusiavimas uztruko: 0.001218s
 
 10000 nariu;
 
 Vector:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 0.004463s
+[2] Rusiavimas uztruko: 0.002901s
+[3] Rusiavimas uztruko: 0.003454s
 
 List:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 0.018267s
+[2] Rusiavimas uztruko: 0.004796s
+[3] Rusiavimas uztruko: 0.005777s
 
 Deque:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 0.010678s
+[2] Rusiavimas uztruko: 0.007348s
+[3] Rusiavimas uztruko: 0.010895s
 
 100000 nariu;
 
 Vector:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 0.033779s
+[2] Rusiavimas uztruko: 0.024354s
+[3] Rusiavimas uztruko: 0.033387s
 
 List:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 0.174336s
+[2] Rusiavimas uztruko: 0.040434s
+[3] Rusiavimas uztruko: 0.049087s
 
 Deque:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 0.106251s
+[2] Rusiavimas uztruko: 0.071745s
+[3] Rusiavimas uztruko: 0.110910s
 
 1000000 nariu;
 
 Vector:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 0.342680s
+[2] Rusiavimas uztruko: 0.237894s
+[3] Rusiavimas uztruko: 0.329903s
 
 List:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 1.799971s
+[2] Rusiavimas uztruko: 0.400558s
+[3] Rusiavimas uztruko: 0.474914s
 
 Deque:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 0.997032s
+[2] Rusiavimas uztruko: 0.701040s
+[3] Rusiavimas uztruko: 1.085049s
 
 100000000 nariu;
 
 Vector:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 3.330945s
+[2] Rusiavimas uztruko: 2.195973s
+[3] Rusiavimas uztruko: 3.176460s
 
 List:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 17.550740s
+[2] Rusiavimas uztruko: 3.913102s
+[3] Rusiavimas uztruko: 4.766835s
 
 Deque:
-[1]
-[2]
-[3]
+[1] Rusiavimas uztruko: 9.947796s
+[2] Rusiavimas uztruko: 7.128626s
+[3] Rusiavimas uztruko: 10.768384s
+
+# Sorting strategy results
+
+2 strategija buvo grečiausia strtegija iš visų, tačiau ji veikė greičiausiai su Vector ir lečiau su List ir Deque.
