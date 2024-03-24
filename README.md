@@ -31,7 +31,15 @@ v1.01 - Programa ta pati kaip ir v1.0 apart pridėtas Makefile.
 
 # Naudojimo instrukcija
 
+1) Jei neturite susiinstaliuokite c++ compilers sekdami instrukcijas šiame puslapyje https://www.freecodecamp.org/news/how-to-install-c-and-cpp-compiler-on-windows/ .
 
+2) Atsisiųskite zip failą ir ištraukite iš jo esančius failus į savo pasirinktą folderį.
+
+3) Jei turite windows powershell atsidarykite jį. Naudodami cd ir sekdami PATH nueikite į folderį kuriame yra programos failai pvz: PATH yra C:\Users\user\Documents\Program, tai powershell terminale:
+[1] cd Documents
+[2] cd Program
+
+4) Jei norite paleisti versiją su vector konteineriais į terminalą įveskite "make vector" ir "./vector", jei su list konteineriais į terminalą įveskite "make list" ir "./list", jei su deque konteineriais  terminalą įveskite "make deque" ir "./deque".
 
 # Test files
 Studentai1000.txt
