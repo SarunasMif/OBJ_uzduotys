@@ -10,6 +10,29 @@ headers_list.h
 headers_deque.h
 includes.h
 
+Makefile
+
+# Releases
+v0.1 - šioje versijoje yra du failai main.cpp, kuris skaičiuoja vidurkį naudojant C masyvus, vektoriai.cpp, kuris skaičiuoja vidurkį naudojant vectors.
+
+v0.11 - ši versija tokia pati kaip ir v0.1, bet main.cpp faile vietoje statiniu C masyvu yra naudojami dinaminei masyvai.
+
+v0.2 - šioje versijoje buvo pridėta galimybė nuskaityti studentų informaciją nuo tekstinio failo.
+
+v0.3 - šioje versijoje buvo pridėtas klaidų gaudymas ir išskaidyta į kelis failus main.cpp, kuriame yra pagrindinė versija, headers.h, kuriame deklaruotos funkcijos ir structas, includes.h, kuriame pridėtos visos naudojamos bibliotekos.
+
+v0.4 - šioje versijoje buvo pridėta galimybė generuoti tekstinius failus ir padlinti studentai į dvi grupes pirma grupė, kurių vidurkis > 5 kita kurių vidurkis < 5.
+
+v0.41 ir v0.42 - identiškos v0.4 tik aptvarkytas kodas.
+
+v1.0 - Programa realizuota su vector, list ir deque. Implementuotos ir testuotos trys studentų dalijimo į dvi dalis strategijos ir testuotas jų efektyvumas.
+
+v1.01 - Programa ta pati kaip ir v1.0 apart pridėtas Makefile.
+
+# Naudojimo instrukcija
+
+
+
 # Test files
 Studentai1000.txt
 Studentai10000.txt
